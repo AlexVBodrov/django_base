@@ -4,9 +4,9 @@ from django.shortcuts import render
 
 def index(request):
     context = {
-        'title': 'GeekShop'
+        'title': 'geekShop'
     }
-    return render(request, 'products/index.html')
+    return render(request, 'products/index.html', context)
 
 def products(request):
     context = {
