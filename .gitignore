@@ -1,4 +1,5 @@
 .idea
-db.sqlite3
+db.sqlite3.last
 __pycache__/
 media
+db.sqlite3.last
