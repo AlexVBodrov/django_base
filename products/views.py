@@ -1,10 +1,11 @@
 from django.shortcuts import render
-import os
-import json
+from products.models import ProductCategory, Product
+# import os
+# import json
 
 # Create your views here.
 
-MODULE_DIR = os.path.dirname(__file__)
+# MODULE_DIR = os.path.dirname(__file__)
 
 def index(request):
     context = {
@@ -13,10 +14,16 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 def products(request):
-    file_path = os.path.join(MODULE_DIR, 'fixtures/last_version_goods.json')
+    # file_path = os.path.join(MODULE_DIR, 'fixtures/last_version_goods.json')
+    products_from_bd = Product.objects.all()
+    categories_from_bd = ProductCategory.objects.all()
+
     context = {
         'title': 'GeekShop - Каталог',
-        'products': json.load(open(file_path, encoding='utf-8'))
+        'products': products_from_bd,
+        'categories': categories_from_bd,
+
+        # 'products': json.load(open(file_path, encoding='utf-8'))
         # 'products': [
         #     {'img_src': 'vendor/img/products/Adidas-hoodie.png', 'name': 'Худи черного цвета с монограммами adidas Originals', 'price': 6090, 'description': 'Мягкая ткань для свитшотов. Стиль и комфорт – это образ жизни.'},
         #     {'img_src': 'vendor/img/products/Blue-jacket-The-North-Face.png', 'name': 'Синяя куртка The North Face', 'price': 23725, 'description': 'Гладкая ткань. Водонепроницаемое покрытие. Легкий и теплый пуховый наполнитель.'},
