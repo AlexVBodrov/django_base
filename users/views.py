@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.contrib import messages
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from baskets.models import Basket
 
 
 # Create your views here.
@@ -52,6 +53,7 @@ def profile(request):
     context = {
         'title': 'GeekShop - Профиль',
         'form': form,
+        'baskets': Basket.objects.filter(user=user),
     }
     return render(request, 'users/profile.html', context)
 
