@@ -2,10 +2,12 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
+
+
 # Create your views here.
 
 @user_passes_test(lambda u: u.is_staff)
@@ -56,7 +58,6 @@ class UserUpdateView(UpdateView):
     template_name = 'admins/admin-users-update-delete.html'
 
 
-
 # Update
 # @user_passes_test(lambda u: u.is_staff)
 # def admin_users_update(request, id):
@@ -72,9 +73,16 @@ class UserUpdateView(UpdateView):
 #     return render(request, 'admins/admin-users-update-delete.html', context)
 
 
+class UserDeleteView(DeleteView):
+    model = User
+    template_name = 'admins/admin-users-update-delete.html'
+    success_url = reverse_lazy('admins:admin_users')
+
+
+
 # Delete
-@user_passes_test(lambda u: u.is_staff)
-def admin_users_delete(request,  id):
-    user = User.objects.get(id=id)
-    user.safe_delete()
-    return HttpResponseRedirect(reverse('admins:admin_users'))
+# @user_passes_test(lambda u: u.is_staff)
+# def admin_users_delete(request,  id):
+#     user = User.objects.get(id=id)
+#     user.safe_delete()
+#     return HttpResponseRedirect(reverse('admins:admin_users'))
